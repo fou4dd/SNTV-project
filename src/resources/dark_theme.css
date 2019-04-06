@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 6, 2019, 2:36:03 PM
+    Author     : fou
+*/
+
+    {
+    -fx-mainBlack:       #2C3033;
+    -fx-blue:            #435BC2;
+    -fx-secondaryGrey:   #424649;
+    -fx-text:            #FDFFF3;
+}
+
+.root{
+    -fx-background-color: -fx-mainBlack;
+}
+
