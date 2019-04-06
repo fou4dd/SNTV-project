@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="381.0" stylesheets="@../resources/dark_theme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="381.0" stylesheets="@../resources/dark_theme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXTextField focusColor="#435bc2" layoutX="84.0" layoutY="219.0" prefHeight="35.0" prefWidth="213.0" promptText="Username" unFocusColor="#424649">
+         <font>
+            <Font name="Consolas" size="26.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField focusColor="#435bc2" layoutX="84.0" layoutY="303.0" prefHeight="35.0" prefWidth="213.0" promptText="Password" unFocusColor="#424649">
+         <font>
+            <Font name="Consolas" size="26.0" />
+         </font>
+      </JFXTextField>
+   </children>
+</AnchorPane>
