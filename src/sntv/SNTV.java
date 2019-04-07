@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -23,6 +24,10 @@ public class SNTV extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
        
         Scene scene = new Scene(root);
+        
+        //scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        
+        stage.initStyle(StageStyle.TRANSPARENT);
         
         DataBase.connect();
         

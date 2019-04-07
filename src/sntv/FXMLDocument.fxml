@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="381.0" stylesheets="@../resources/dark_theme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="391.0" stylesheets="@../resources/dark_theme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextField focusColor="#435bc2" layoutX="84.0" layoutY="219.0" prefHeight="35.0" prefWidth="213.0" promptText="Username" unFocusColor="#424649">
+      <JFXButton focusTraversable="false" layoutX="81.0" layoutY="412.0" prefHeight="35.0" prefWidth="93.0" styleClass="login-button" text="Login" textFill="#fdfff3" />
+      <JFXButton focusTraversable="false" layoutX="218.0" layoutY="412.0" prefHeight="35.0" prefWidth="93.0" styleClass="login-button" text="Cancel" textAlignment="CENTER" textFill="#fdfff3" />
+      <JFXTextField focusColor="#435bc2" layoutX="81.0" layoutY="247.0" prefHeight="35.0" prefWidth="230.0" promptText="Username" unFocusColor="#424649">
          <font>
-            <Font name="Consolas" size="26.0" />
+            <Font name="SansSerif Regular" size="13.0" />
          </font>
       </JFXTextField>
-      <JFXTextField focusColor="#435bc2" layoutX="84.0" layoutY="303.0" prefHeight="35.0" prefWidth="213.0" promptText="Password" unFocusColor="#424649">
+      <JFXPasswordField focusColor="#435bc2" layoutX="81.0" layoutY="328.0" prefHeight="35.0" prefWidth="230.0" promptText="Password" unFocusColor="#424649">
          <font>
-            <Font name="Consolas" size="26.0" />
+            <Font name="SansSerif Regular" size="13.0" />
          </font>
-      </JFXTextField>
+      </JFXPasswordField>
    </children>
 </AnchorPane>

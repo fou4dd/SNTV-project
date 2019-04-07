@@ -5,7 +5,6 @@
  */
 package sntv;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

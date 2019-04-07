@@ -22,7 +22,7 @@ public class DataBase {
         try{
             
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            connection = DriverManager.getConnection("jdbc:ucanaccess://BDDSNTV.accbd");
+            connection = DriverManager.getConnection("jdbc:ucanaccess://BDDSNTV.accdb");
             JOptionPane.showMessageDialog(null, "Connection Succesful!");
             
         }catch(Exception e){

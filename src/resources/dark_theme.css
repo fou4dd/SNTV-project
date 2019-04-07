@@ -19,3 +19,22 @@ and open the template in the editor.
     -fx-background-color: -fx-mainBlack;
 }
 
+.login-button{
+    -fx-border-color: -fx-blue;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.login-button:hover{
+    -fx-border-color: -fx-blue;
+    -fx-background-color: -fx-blue;
+    -fx-text-fill: -fx-text;
+}
+
+.text-field{
+    -fx-text-fill: -fx-text;
+    -fx-font-size: 13px;
+    -fx-focus-color: -fx-blue;
+    -fx-background-color: -fx-mainBlack;
+}
+
