@@ -23,11 +23,11 @@ public class DataBase {
             
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             connection = DriverManager.getConnection("jdbc:ucanaccess://BDDSNTV.accdb");
-            JOptionPane.showMessageDialog(null, "Connection Succesful!");
+            //System.out.println("Connection established");
             
         }catch(Exception e){
             
-            JOptionPane.showMessageDialog(null, "Connection failed!");
+            System.out.println("Connection failed");
             
         }
         

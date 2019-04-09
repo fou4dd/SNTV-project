@@ -21,7 +21,7 @@ public class SNTV extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLlogin.fxml"));
        
         Scene scene = new Scene(root);
         
@@ -29,7 +29,7 @@ public class SNTV extends Application {
         
         stage.initStyle(StageStyle.TRANSPARENT);
         
-        DataBase.connect();
+        //DataBase.connect();
         
         stage.setScene(scene);
         stage.show();
