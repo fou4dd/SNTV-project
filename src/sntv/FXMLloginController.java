@@ -69,25 +69,28 @@ public class FXMLloginController implements Initializable {
                 
                 System.out.println("LOGIN");
                 break;
+            
+            
+               
             }
-            else{
-                usernameID.setText("");
-                passwordID.setText("");
-                System.out.println("USERNAME OR PASSWORD INCORRECT");
-                break;
-            }
+            
+ 
         }
-        
+
     }
     
-    public void exit(){
+      public void exit(){
         Platform.exit();
-    }
-
-    @Override
+    }    
+        
+        
+      @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-     
-    }    
+    }  
     
-}
+    
+    }
+   
+
+
