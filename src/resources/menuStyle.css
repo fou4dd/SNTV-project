@@ -1,0 +1,21 @@
+.settings-layout{
+    -fx-background-color: #323942;
+}
+
+.buttons{
+    -fx-border-color: #323942;
+    -fx-background-color: #323942;
+    -fx-font: bold  14 "Consolas";
+    -fx-text-fill: #95989a;
+    -fx-text-alignment: left;
+}
+
+.buttons:hover{
+    -fx-background-color: #323942;
+    -fx-text-fill: #FDFFF3;
+    -fx-cursor: hand;
+}
+
+.sntv{
+    -fx-pref-height: 30px;
+}
