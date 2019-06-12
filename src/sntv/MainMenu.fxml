@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sntv.MainMenuController">
-    
+<AnchorPane prefHeight="541.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sntv.MainMenuController">
+   <children>
+      <VBox alignment="CENTER" layoutY="70.0" prefHeight="358.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
+         <children>
+            <JFXButton prefHeight="40.0" prefWidth="178.0" ripplerFill="#2c3033" styleClass="buttons" text="ACCUEIL" />
+            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#2c3033" styleClass="buttons" text="COMPTE" />
+            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#2c3033" styleClass="buttons" text="BUS" textAlignment="CENTER" />
+            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#2c3033" styleClass="buttons" text="LIGNES" />
+            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#2c3033" styleClass="buttons" text="CHOFFEUR" />
+         </children></VBox>
+      <HBox layoutX="178.0" prefHeight="70.0" prefWidth="528.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#019ce1" height="70.0" stroke="#019ce1" strokeType="INSIDE" width="199.0" />
+         </children>
+      </HBox>
+      <AnchorPane layoutY="381.0" prefHeight="160.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
+         <children>
+            <JFXButton layoutY="-6.0" prefHeight="40.0" prefWidth="178.0" ripplerFill="#2c3033" styleClass="buttons" text="AIDE" />
+            <JFXButton layoutY="34.0" prefHeight="40.0" prefWidth="178.0" ripplerFill="#2c3033" styleClass="buttons" text="CONTACT" />
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
