@@ -50,7 +50,7 @@ public class FXMLloginController implements Initializable {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                list.add(new User(rs.getString("Nom Utilisateur"), rs.getString("Mot de Passe")));
+                list.add(new User(rs.getString("username"), rs.getString("pass")));
             }
         } catch (SQLException ex) {
             System.out.println("Exception getting DATA");

@@ -19,3 +19,11 @@
 .sntv{
     -fx-pref-height: 30px;
 }
+
+.search-bar{
+    -fx-background-color: #EFF3F6;
+}
+
+.labels{
+    -fx-text-fill: #2C3033;
+}
