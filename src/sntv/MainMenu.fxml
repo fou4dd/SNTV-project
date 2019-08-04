@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,11 +16,11 @@
    <children>
       <VBox alignment="CENTER" layoutY="70.0" prefHeight="358.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
          <children>
-            <JFXButton prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="ACCUEIL" />
+            <JFXButton fx:id="accueil_btn" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="ACCUEIL" />
             <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="COMPTE" />
-            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="BUS" textAlignment="CENTER" />
-            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="LIGNES" />
-            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="CHOFFEUR" />
+            <JFXButton fx:id="bus_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="BUS" textAlignment="CENTER" />
+            <JFXButton fx:id="ligne_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="LIGNES" />
+            <JFXButton fx:id="chauffeur_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="CHAUFFEUR" />
             <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="STATISTIQUE" />
          </children>
       </VBox>
@@ -30,8 +31,8 @@
       </HBox>
       <AnchorPane layoutY="381.0" prefHeight="162.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
          <children>
-            <JFXButton layoutY="-6.0" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="AIDE" />
-            <JFXButton layoutY="34.0" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="CONTACT" />
+            <JFXButton fx:id="aide_btn" layoutY="-6.0" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="AIDE" />
+            <JFXButton fx:id="contact_btn" layoutY="34.0" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="CONTACT" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="70.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
@@ -40,40 +41,64 @@
          </image>
       </ImageView>
       <AnchorPane layoutX="178.0" layoutY="70.0" prefHeight="59.0" prefWidth="883.0" styleClass="search-bar" stylesheets="@../resources/menuStyle.css" />
-      <AnchorPane layoutX="179.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+      <AnchorPane fx:id="accueil_page" layoutX="179.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0">
          <children>
-            <Accordion fx:id="lignesList" layoutX="12.0" layoutY="11.0" prefHeight="393.0" prefWidth="858.0">
-              <panes>
-                <TitledPane animated="false">
-                     <content>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label prefHeight="41.0" prefWidth="645.0" text="Setif" />
-                              <JFXButton prefHeight="41.0" prefWidth="200.0" />
-                           </children>
-                        </HBox>
-                     </content>
-                </TitledPane>
-                <TitledPane animated="false">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-              </panes>
-            </Accordion>
+            <Accordion fx:id="lignesList" layoutX="12.0" layoutY="11.0" prefHeight="393.0" prefWidth="858.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
-      <AnchorPane layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
+      <AnchorPane fx:id="bus_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+         <children>
+            <Label layoutX="63.0" layoutY="47.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Marque" textAlignment="CENTER" />
+            <JFXTextField layoutX="301.0" layoutY="47.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="63.0" layoutY="129.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Matricule" textAlignment="CENTER" />
+            <JFXTextField layoutX="301.0" layoutY="129.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="63.0" layoutY="214.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Capacite" textAlignment="CENTER" />
+            <JFXTextField layoutX="301.0" layoutY="214.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="63.0" layoutY="301.0" prefHeight="40.0" prefWidth="184.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Ligne" textAlignment="CENTER" />
+            <JFXTextField layoutX="304.0" layoutY="301.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <JFXButton layoutX="699.0" layoutY="341.0" prefHeight="48.0" prefWidth="160.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="AJOUTER" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="ligne_page" layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+         <children>
+            <Label layoutX="82.0" layoutY="51.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="nom" />
+            <JFXTextField layoutX="298.0" layoutY="51.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="82.0" layoutY="128.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="SNTV Depart" />
+            <JFXTextField layoutX="298.0" layoutY="128.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="82.0" layoutY="207.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="SNTV arrive" />
+            <JFXTextField layoutX="298.0" layoutY="207.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="82.0" layoutY="285.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Prix" />
+            <JFXTextField layoutX="298.0" layoutY="285.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <JFXButton layoutX="696.0" layoutY="339.0" prefHeight="48.0" prefWidth="160.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="AJOUTER" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="chauffeur_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+         <children>
+            <Label layoutX="84.0" layoutY="39.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="nom" />
+            <JFXTextField layoutX="295.0" layoutY="37.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="84.0" layoutY="93.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="prenom" />
+            <JFXTextField layoutX="295.0" layoutY="91.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="84.0" layoutY="148.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Nationalite" />
+            <JFXTextField layoutX="295.0" layoutY="146.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="84.0" layoutY="203.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Adr" />
+            <JFXTextField layoutX="295.0" layoutY="201.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="84.0" layoutY="261.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Tel" />
+            <JFXTextField layoutX="295.0" layoutY="259.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <Label layoutX="84.0" layoutY="320.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Bus" />
+            <JFXTextField layoutX="295.0" layoutY="318.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <JFXButton layoutX="712.0" layoutY="350.0" prefHeight="40.0" prefWidth="150.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="Ajouter" />
+         </children></AnchorPane>
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
-      <AnchorPane layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
-      <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
-      <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
-      <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
-      <Label layoutX="313.0" layoutY="210.0" prefHeight="40.0" prefWidth="134.0" style="-fx-alignment: center;" text="Label" textAlignment="CENTER" />
+      <AnchorPane fx:id="aide_page" layoutX="178.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+         <children>
+            <JFXTextArea editable="false" focusColor="WHITE" layoutX="44.0" layoutY="31.0" prefHeight="358.0" prefWidth="804.0" text="&#10;&#10;&#10;ACCUEIL:&#10;&#9;Dans cette section on trouve la liste des lignes et les bus disponible dans chaque ligne et on peut réserver un tiquet dans cette page, et cella par cliquer sur la ligne et choisissez le bus disponible après cliquer sur réserver.   &#10;&#10; &#10;BUS : (Accès Privée ‘’Administration’’)&#10;&#9;On cas d’ajout d’un Bus.&#10;&#10;&#10;LIGNES : (Accès Privée ‘’Administration’’)&#10;&#9;On cas d’ajout d’une Ligne.&#10;&#10;&#10;CHOFFEUR : (Accès Privée ‘’Administration’’)&#10;&#9;On cas d’ajout d’un Chauffeur.&#10;&#10;&#10;" unFocusColor="WHITE" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="contact_page" layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="93.0" layoutX="395.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons8_Phone_104px_3.png" />
+               </image>
+            </ImageView>
+            <JFXTextArea editable="false" focusColor="WHITE" layoutX="210.0" layoutY="207.0" text="                           Report any trouble or feedback right back to us &#10;&#10;                                                         Contact us&#10;&#10;                                             &#10;                                              fouedsedrati@gmal.com" unFocusColor="WHITE" />
+         </children></AnchorPane>
    </children>
 </AnchorPane>

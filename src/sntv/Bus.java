@@ -5,53 +5,61 @@ import javafx.collections.ObservableList;
 
 public class Bus {
     
-    private int NBus;
-    private int NVoyage;
-    private int Capacite;
-    private String nom;
-    
-    public static ObservableList<Bus> availlableBus;
-    
+    private int numBus;
+    private String marque;
+    private String matricule;
+    private int capacite;
+       
     boolean isFull;
 
-    public Bus(int NBus, int NVoyage, int Capacite, String nom) {
-        this.NBus = NBus;
-        this.NVoyage = NVoyage;
-        this.Capacite = Capacite;
-        this.nom = nom;
+    public Bus(int NBus, String marque, String matricule, int capacite) {
+        this.numBus = numBus;
+        this.marque = marque;
+        this.matricule = matricule;
+        this.capacite = capacite;
     }
 
-    public int getNBus() {
-        return NBus;
+    public int getNumBus() {
+        return numBus;
     }
 
-    public void setNBus(int NBus) {
-        this.NBus = NBus;
+    public void setNumBus(int numBus) {
+        this.numBus = numBus;
     }
 
-    public int getNVoyage() {
-        return NVoyage;
+    public String getMarque() {
+        return marque;
     }
 
-    public void setNVoyage(int NVoyage) {
-        this.NVoyage = NVoyage;
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
     }
 
     public int getCapacite() {
-        return Capacite;
+        return capacite;
     }
 
-    public void setCapacite(int Capacite) {
-        this.Capacite = Capacite;
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
     }
 
-    public String getNom() {
-        return nom;
+    public boolean isIsFull() {
+        return isFull;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setIsFull(boolean isFull) {
+        this.isFull = isFull;
     }
+
+    
     
     
     
