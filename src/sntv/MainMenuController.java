@@ -12,19 +12,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -41,6 +51,11 @@ public class MainMenuController implements Initializable {
 
     @FXML 
     private Accordion lignesList;
+    
+    @FXML
+    private AnchorPane timeRec;
+    
+    @FXML private Label clock;
     
     private void makeAllInvisible(){
         accueil_page.setVisible(false);
@@ -162,6 +177,22 @@ public class MainMenuController implements Initializable {
         for(Lignes ligne : lignes){
             lignesList.getPanes().add(new TitledPane(ligne.getNomLigne(), addAnchorPane(ligne.getNomLigne())));
         }
+        
+     
+        final DateFormat format = DateFormat.getInstance();
+        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), 
+            new EventHandler() 
+            {
+
+            @Override
+            public void handle(Event event) {
+                     final Calendar cal = Calendar.getInstance();
+                     clock.setText(format.format(cal.getTime()));
+            }
+            }));
+   
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
         
     }
         

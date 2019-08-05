@@ -9,8 +9,10 @@ import DB.DataBase;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,10 +32,8 @@ public class SNTV extends Application {
        
         Scene scene = new Scene(root);
         
-        //scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);
-        
         
         
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -53,8 +53,8 @@ public class SNTV extends Application {
         
         
         //DataBase.connect();
-        
         stage.setScene(scene);
+        stage.getScene().getRoot().setEffect(new DropShadow());
         stage.show();
     }
 

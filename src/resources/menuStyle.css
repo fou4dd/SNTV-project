@@ -1,3 +1,7 @@
+.root{
+    -fx-
+}
+
 .settings-layout{
     -fx-background-color: #323942;
 }
@@ -21,7 +25,7 @@
 }
 
 .search-bar{
-    -fx-background-color: #EFF3F6;
+    -fx-background-color: #637583;
 }
 
 .labels{
@@ -50,4 +54,12 @@
     -fx-border-radius: 40px;
     -fx-background-radius: 40px;
     -fx-cursor: hand;
+}
+
+.clock_label{
+    -fx-text-fill: #EFF3F6;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-font-size: 27px;
+    -fx-font-family: "Calibri";
 }

@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane id="pane" prefHeight="541.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sntv.MainMenuController">
    <children>
@@ -26,7 +25,11 @@
       </VBox>
       <HBox layoutX="178.0" prefHeight="70.0" prefWidth="528.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#323942" height="70.0" stroke="#323942" strokeType="INSIDE" width="199.0" />
+            <AnchorPane fx:id="timeRec" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #323942; -fx-border-color: #323942;">
+               <children>
+                  <Label fx:id="clock" prefHeight="70.0" prefWidth="200.0" styleClass="clock_label" stylesheets="@../resources/menuStyle.css" />
+               </children>
+            </AnchorPane>
          </children>
       </HBox>
       <AnchorPane layoutY="381.0" prefHeight="162.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
@@ -41,7 +44,7 @@
          </image>
       </ImageView>
       <AnchorPane layoutX="178.0" layoutY="70.0" prefHeight="59.0" prefWidth="883.0" styleClass="search-bar" stylesheets="@../resources/menuStyle.css" />
-      <AnchorPane fx:id="accueil_page" layoutX="179.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0">
+      <AnchorPane fx:id="accueil_page" layoutX="179.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
             <Accordion fx:id="lignesList" layoutX="12.0" layoutY="11.0" prefHeight="393.0" prefWidth="858.0" />
          </children></AnchorPane>
