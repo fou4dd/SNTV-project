@@ -1,6 +1,7 @@
 
 package sntv;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
@@ -12,7 +13,9 @@ public class Lignes {
     private String arrive;
     private float prix;
     
-    ObservableList<Bus> listDesBus;
+    public static ObservableList<Lignes> lignes = FXCollections.observableArrayList();
+    
+    private ObservableList<Bus> listDesBus;
 
     public Lignes(int numLignes, String nomLigne, String depart, String arrive, float prix) {
         this.numLignes = numLignes;
@@ -22,6 +25,13 @@ public class Lignes {
         this.prix = prix;
     }
 
+    public Lignes(String nomLigne, String depart, String arrive, float prix) {
+        this.nomLigne = nomLigne;
+        this.depart = depart;
+        this.arrive = arrive;
+        this.prix = prix;
+    }
+    
     public Lignes(String nomLigne) {
         this.nomLigne = nomLigne;
     }

@@ -1,0 +1,10 @@
+b / ALGER / GREATWALL / 9999 / 56
+b / ORAN / toyota / 4547 / 5
+b / Msila / higer / 487596 / 69
+l / TLEMSAN / BBA / TLEMSAN / 200
+l / ADRAR / BBA / ADRAR / 600
+l / NIGERIA / BBA / NIGERIA / 100.0
+c / Makhlofi / said / Algerienne / gfdgfd / ea
+c / foued / sedrati / Algerienne / gfd / aee
+c / monder / nait / Algerienne / ewfwt / ae
+END

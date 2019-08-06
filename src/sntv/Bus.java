@@ -1,19 +1,31 @@
 package sntv;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 public class Bus {
     
     private int numBus;
+    private String nomLigne;
     private String marque;
     private String matricule;
     private int capacite;
        
     boolean isFull;
+    
+    public static ObservableList<Bus> buses = FXCollections.observableArrayList();
 
-    public Bus(int NBus, String marque, String matricule, int capacite) {
+    public Bus(int NBus, String nomLigne, String marque, String matricule, int capacite) {
         this.numBus = numBus;
+        this.nomLigne = nomLigne;
+        this.marque = marque;
+        this.matricule = matricule;
+        this.capacite = capacite;
+    }
+
+    public Bus(String nomLigne, String marque, String matricule, int capacite) {
+        this.nomLigne = nomLigne;
         this.marque = marque;
         this.matricule = matricule;
         this.capacite = capacite;
@@ -21,6 +33,14 @@ public class Bus {
 
     public int getNumBus() {
         return numBus;
+    }
+
+    public String getNomLigne() {
+        return nomLigne;
+    }
+
+    public void setNomLigne(String nomLigne) {
+        this.nomLigne = nomLigne;
     }
 
     public void setNumBus(int numBus) {

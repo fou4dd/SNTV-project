@@ -5,11 +5,9 @@
  */
 package sntv;
 
-import DB.DataBase;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -54,7 +52,6 @@ public class SNTV extends Application {
         
         //DataBase.connect();
         stage.setScene(scene);
-        stage.getScene().getRoot().setEffect(new DropShadow());
         stage.show();
     }
 
