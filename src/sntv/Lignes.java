@@ -75,6 +75,16 @@ public class Lignes {
     public void setPrix(float prix) {
         this.prix = prix;
     }
+
+    public ObservableList<Bus> getListDesBus() {
+        return listDesBus;
+    }
+
+    public void setListDesBus(ObservableList<Bus> listDesBus) {
+        this.listDesBus = listDesBus;
+    }
+    
+    
     
     
     

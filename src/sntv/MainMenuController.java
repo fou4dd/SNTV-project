@@ -14,13 +14,12 @@ import java.io.FileReader;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -32,9 +31,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
@@ -48,15 +52,59 @@ public class MainMenuController implements Initializable {
     private AnchorPane accueil_page,bus_page,ligne_page,chauffeur_page,aide_page,contact_page;
     
     @FXML
-    private JFXButton accueil_btn,bus_btn,ligne_btn,chauffeur_btn,aide_btn,contact_btn;
+    private JFXButton accueil_btn,bus_btn,ligne_btn,chauffeur_btn,aide_btn,contact_btn
+                        , loadFileBtn;
 
     @FXML 
     private Accordion lignesList;
+    
+    @FXML private ImageView exit, substract; 
     
     @FXML
     private AnchorPane timeRec;
     
     @FXML private Label clock;
+    
+    private static Map<String, VBox> vboxes = new HashMap<String, VBox>();
+    
+    //FOR EVERY LIGNE THE FUNCTON SHOWS THE BUSES OF THE LIGNE AS BUTTONS ON THE HBOX
+    private void showBusesOfeveryLigne(){
+        for(Map.Entry<String, VBox> map : vboxes.entrySet()){
+            for(Bus bus : Bus.buses){
+                if(map.getKey().equals(bus.getNomLigne())){
+                    //create a new button
+                    JFXButton button = new JFXButton(bus.getMarque());
+                    buttonsDesign(button);
+                    map.getValue().getChildren().add(button);
+                }
+            }
+        }
+    }
+    
+    //FUNCTON THAT STORES HBOX 
+    private void storeHboxes(Lignes ligne){
+        VBox vb = new VBox();
+        vb.setId(ligne.getNomLigne());
+        vboxes.put(ligne.getNomLigne(), vb);
+    }
+    
+    //FUNCTON THAT RETURNS LIST OF BUSES OF A GIVEN LIGNE 
+    private ObservableList<Bus> getListOfBusOf(Lignes ligne){
+        ObservableList<Bus> listOfBuses = FXCollections.observableArrayList();
+        for(Bus bus : Bus.buses){
+                if(bus.getNomLigne().equals(ligne.getNomLigne())){
+                    listOfBuses.add(bus);
+                }
+        }
+        return listOfBuses;
+    }
+    
+    //GO THROUGH EVERY LIGNE AND GET EVERY LIGNE BUSES USING THE FUCTION ABOVE
+    private void getEveryLigneBuses(){
+        for(Lignes ligne : Lignes.lignes){
+            ligne.setListDesBus(getListOfBusOf(ligne));
+        }
+    }
     
     private void makeAllInvisible(){
         accueil_page.setVisible(false);
@@ -68,10 +116,10 @@ public class MainMenuController implements Initializable {
     }
     
     //FONCTION RETURNS ANCHORPANE WITH ID FOR EACH LIGNE
-        private AnchorPane addAnchorPane(String ID){
-            AnchorPane pane = new AnchorPane();
-            pane.setId(ID);
-            return pane;
+        private HBox addHBox(String ID){
+            HBox box = new HBox();
+            box.setId(ID);
+            return box;
         }
     
         /*
@@ -118,7 +166,7 @@ public class MainMenuController implements Initializable {
         }
         
         //LOAD BUSES TO DB
-        private void loadBusesToDB() throws SQLException{
+        private void loadDataToDB() throws SQLException{
             Connection connection = connect();
             
             String query = "INSERT INTO Bus (nomLigne, Marque, Matricule, Capacite)"
@@ -138,6 +186,7 @@ public class MainMenuController implements Initializable {
             ps = connection.prepareStatement(query);
             ps2 = connection.prepareStatement(query2);
             ps3 = connection.prepareStatement(query3);
+           
             
             for(Bus bus : Bus.buses){
                 ps.setString(1, bus.getNomLigne());
@@ -180,33 +229,17 @@ public class MainMenuController implements Initializable {
         }
         }
         
+        //BUTTONS DESIGN FUNCTION
+        private void buttonsDesign(JFXButton button){
+            button.getStyleClass().add("bus_buttons");
+            button.getStylesheets().add("resources/menuStyle.css");
+            button.setPrefWidth(858);
+            button.setPrefHeight(100);     
+        }
+        
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-        
-        Connection connection = connect();
-        ObservableList<Lignes> lignes = FXCollections.observableArrayList();
-        
-        try {
-            PreparedStatement ps = connection.prepareStatement("select * from Lignes");
-            ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-                lignes.add(new Lignes(rs.getInt("NLigne"), rs.getString("nomLigne"), rs.getString("Sntv Depart"),
-                        rs.getString("SNTV Arrive"), rs.getFloat("prix")));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Exception getting DATA");
-            
-        }finally{
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                System.out.println("Exception closing DB");
-            }
-        }
         
         accueil_page.setVisible(true);
         bus_page.setVisible(false);
@@ -264,13 +297,45 @@ public class MainMenuController implements Initializable {
             } 
         });
         
-        //AFFICHER LES LIGNES DANS LA LIST DES LIGNES COMME TITLEDPANE 
+        exit.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                System.exit(0);
+            }
+    
+    
+        });
+            
+            loadFile("data");
+            
+            //ADDING LIGNES AS TTLEDPANE AND ALSO ADDING HBOXES
+            for(Lignes ligne : Lignes.lignes){              
+                    storeHboxes(ligne);
+                    lignesList.getPanes().add(new TitledPane(ligne.getNomLigne(), vboxes.get(ligne.getNomLigne())));    
+                }
         
-        for(Lignes ligne : lignes){
-            lignesList.getPanes().add(new TitledPane(ligne.getNomLigne(), addAnchorPane(ligne.getNomLigne())));
-        }
+             //LOADNG FILE
+            loadFileBtn.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                
+                try {
+                    loadDataToDB();
+                } catch (SQLException ex) {
+                 ex.printStackTrace();
+                 System.err.println("Could not load buses to DB");
+                }
+                
+                //AFFICHER LES LIGNES DANS LA LIST DES LIGNES COMME TITLEDPANE 
         
-        //CLOC AND DATE
+                for(Lignes ligne : Lignes.lignes){
+                    lignesList.getPanes().add(new TitledPane(ligne.getNomLigne(), vboxes.get(ligne.getNomLigne())));
+                }
+            }
+            });
+            
+            
+        //CLOCK AND DATE
         final DateFormat format = DateFormat.getInstance();
         final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), 
             new EventHandler() 
@@ -285,21 +350,24 @@ public class MainMenuController implements Initializable {
    
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
+
+            
+            getEveryLigneBuses();
+             
+            showBusesOfeveryLigne();
             
             
-            //LOADNG FILE
-            loadFile("BUS");
-        try {
-            loadBusesToDB();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            System.err.println("Could not load buses to DB");
-        }
-            /*
-            System.out.println(Bus.buses.toString());
-            System.out.println(Lignes.lignes.toString());
-            System.out.println(Chauffeur.chauffeur.toString());
+            
+            /*   
+             for(Lignes ligne : Lignes.lignes){
+                 
+                 for(Bus bus : ligne.getListDesBus()){
+                     System.out.println(bus.getMarque());
+                 }
+                
+            }
             */
+             
     }
         
 }    

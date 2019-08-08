@@ -5,7 +5,7 @@
 .buttons{
     -fx-border-color: #323942;
     -fx-background-color: #323942;
-    -fx-font: bold  14 "Consolas";
+    -fx-font: bold  14 "Calibri";
     -fx-text-fill: #95989a;
     -fx-text-alignment: left;
 }
@@ -29,7 +29,7 @@
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-font-size: 22px;
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Calibri";
     -fx-background-color: #6F8395;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
@@ -38,14 +38,14 @@
 .textFields{
     -fx-text-fill: #2C3033;
     -fx-font-size: 18px;
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Calibri";
     -fx-focus-color: -fx-blue;
 }
 
 .apply-buttons{
     -fx-border-color: #25AAE1;
     -fx-background-color: #25AAE1;
-    -fx-font: bold  16 "Consolas";
+    -fx-font: bold  16 "Calibri";
     -fx-text-fill: #FDFFF3;
     -fx-border-radius: 40px;
     -fx-background-radius: 40px;
@@ -58,4 +58,22 @@
     -fx-alignment: center;
     -fx-font-size: 27px;
     -fx-font-family: "Calibri";
+}
+
+.bus_buttons{
+    -fx-font: normal 25 "Calibri";
+    -fx-text-fill: #535058;
+}
+
+.bus_buttons:hover{
+    -fx-text-fill: #252022;
+    -fx-cursor: hand;
+}
+
+.textArea{
+    -fx-background-color: #323942;
+    -fx-focus-color: #323942;
+    -fx-text-fill: #95989a;
+    -fx-font: normal 11 "Calibri";
+    -fx-alignment: center;
 }
