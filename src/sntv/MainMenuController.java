@@ -31,7 +31,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
@@ -67,6 +66,42 @@ public class MainMenuController implements Initializable {
     
     private static Map<String, VBox> vboxes = new HashMap<String, VBox>();
     
+    private void loadProgramFileOf(Lignes ligne) throws FileNotFoundException{
+        FileReader fr = null;
+        try {
+            fr = new FileReader(new File("src/resources/programmeDesBuses/"+ligne.getNomLigne()+".txt"));
+        } catch (FileNotFoundException ex) {
+            System.err.println("could not load the file");
+            ex.printStackTrace();
+        }
+        
+        BufferedReader reader = new BufferedReader(fr);
+        String line;
+        int timeBetween = 0;
+        
+        try{
+            line = reader.readLine();
+            if(line.startsWith("tb ")){
+                String[] timeB = line.split(" / ");
+                timeBetween = Integer.parseInt(timeB[1]);
+            }
+            while(!line.endsWith("END")){
+                if(line.startsWith("s ")){
+                    String[] currentLine = line.split(" / ");
+                    Schedule schedule = new Schedule(currentLine[1], Integer.parseInt(currentLine[2]), currentLine[3], currentLine[4]);
+                    schedule.setTimeBetween(timeBetween);
+                    Schedule.schedule.add(schedule);
+                }
+                line = reader.readLine();
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+    }
+    
+    
     //FOR EVERY LIGNE THE FUNCTON SHOWS THE BUSES OF THE LIGNE AS BUTTONS ON THE HBOX
     private void showBusesOfeveryLigne(){
         for(Map.Entry<String, VBox> map : vboxes.entrySet()){
@@ -82,7 +117,7 @@ public class MainMenuController implements Initializable {
     }
     
     //FUNCTON THAT STORES HBOX 
-    private void storeHboxes(Lignes ligne){
+    private void storeVboxes(Lignes ligne){
         VBox vb = new VBox();
         vb.setId(ligne.getNomLigne());
         vboxes.put(ligne.getNomLigne(), vb);
@@ -181,12 +216,12 @@ public class MainMenuController implements Initializable {
             PreparedStatement ps = null;
             PreparedStatement ps2 = null;
             PreparedStatement ps3 = null;
+            
         try {
             
             ps = connection.prepareStatement(query);
             ps2 = connection.prepareStatement(query2);
             ps3 = connection.prepareStatement(query3);
-           
             
             for(Bus bus : Bus.buses){
                 ps.setString(1, bus.getNomLigne());
@@ -206,7 +241,8 @@ public class MainMenuController implements Initializable {
                 ps2.addBatch();   // THE INSERT HAPPENS HERE
             }
             ps2.executeBatch();
-            
+          
+
             for(Chauffeur chauffeur : Chauffeur.chauffeur){
                 ps3.setString(1, chauffeur.getNom());
                 ps3.setString(2, chauffeur.getPrenom());
@@ -216,16 +252,15 @@ public class MainMenuController implements Initializable {
                 ps3.addBatch();   // THE INSERT HAPPENS HERE
             }
             ps3.executeBatch();
-           
+
+            
         } catch (SQLException ex) {
-            ex.printStackTrace();
             System.out.println("ERROR HERE");
             throw ex;
         }finally{
             ps.close();
             ps2.close();
             ps3.close();
-            
         }
         }
         
@@ -240,7 +275,7 @@ public class MainMenuController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+ 
         accueil_page.setVisible(true);
         bus_page.setVisible(false);
         ligne_page.setVisible(false);
@@ -308,12 +343,20 @@ public class MainMenuController implements Initializable {
             
             loadFile("data");
             
-            //ADDING LIGNES AS TTLEDPANE AND ALSO ADDING HBOXES
+            //ADDING LIGNES AS TITLEDPANE AND ALSO ADDING VBOXES
             for(Lignes ligne : Lignes.lignes){              
-                    storeHboxes(ligne);
+                    storeVboxes(ligne);
                     lignesList.getPanes().add(new TitledPane(ligne.getNomLigne(), vboxes.get(ligne.getNomLigne())));    
                 }
-        
+            
+            
+                try {
+                     loadDataToDB();
+                } catch (SQLException ex) {
+                    System.err.println("Could not load buses to DB");
+                }
+            
+        /*
              //LOADNG FILE
             loadFileBtn.setOnAction(new EventHandler<ActionEvent>(){
             @Override
@@ -333,7 +376,7 @@ public class MainMenuController implements Initializable {
                 }
             }
             });
-            
+        */   
             
         //CLOCK AND DATE
         final DateFormat format = DateFormat.getInstance();
@@ -350,23 +393,22 @@ public class MainMenuController implements Initializable {
    
             timeline.setCycleCount(Animation.INDEFINITE);
             timeline.play();
-
-            
+           
             getEveryLigneBuses();
              
             showBusesOfeveryLigne();
             
-            
-            
-            /*   
-             for(Lignes ligne : Lignes.lignes){
-                 
-                 for(Bus bus : ligne.getListDesBus()){
-                     System.out.println(bus.getMarque());
-                 }
-                
+            for(Lignes ligne : Lignes.lignes){
+            try {
+                loadProgramFileOf(ligne);
+            } catch (FileNotFoundException ex) {
+                System.err.println("Could not find the file !");
             }
-            */
+            }
+            
+            //SCHEDULE
+            Bus.setEveryBusSchedule();
+           
              
     }
         

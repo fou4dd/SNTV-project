@@ -11,12 +11,12 @@ public class Bus {
     private String marque;
     private String matricule;
     private int capacite;
-       
+    private Schedule schedule;
     boolean isFull;
     
     public static ObservableList<Bus> buses = FXCollections.observableArrayList();
 
-    public Bus(int NBus, String nomLigne, String marque, String matricule, int capacite) {
+    public Bus(int numBus, String nomLigne, String marque, String matricule, int capacite) {
         this.numBus = numBus;
         this.nomLigne = nomLigne;
         this.marque = marque;
@@ -30,7 +30,25 @@ public class Bus {
         this.matricule = matricule;
         this.capacite = capacite;
     }
+    
+    public static void setEveryBusSchedule(){
+        for(Bus bus : Bus.buses){
+            for(Schedule schedule : Schedule.schedule){
+                if(bus.getMatricule().equals(schedule.getMatricule())){
+                    bus.setSchedule(schedule);
+                }
+            }
+        }
+    }
 
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+    
     public int getNumBus() {
         return numBus;
     }

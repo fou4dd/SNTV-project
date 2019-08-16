@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -51,7 +52,11 @@
          </children></AnchorPane>
       <AnchorPane fx:id="accueil_page" layoutX="179.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <Accordion fx:id="lignesList" layoutX="12.0" layoutY="11.0" prefHeight="393.0" prefWidth="858.0" />
+            <ScrollPane prefHeight="406.0" prefWidth="883.0">
+               <content>
+                  <Accordion fx:id="lignesList" prefHeight="393.0" prefWidth="858.0" />
+               </content>
+            </ScrollPane>
          </children></AnchorPane>
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
       <AnchorPane fx:id="bus_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
