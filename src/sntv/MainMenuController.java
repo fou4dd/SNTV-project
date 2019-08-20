@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
@@ -36,8 +37,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -46,6 +49,8 @@ import javafx.util.Duration;
  * @author fou
  */
 public class MainMenuController implements Initializable {
+    private static Map<String, VBox> vboxes = new HashMap<String, VBox>();
+    public static Map<String, JFXButton> buttons = new HashMap<String, JFXButton>();
     
     @FXML
     private AnchorPane accueil_page,bus_page,ligne_page,chauffeur_page,aide_page,contact_page;
@@ -63,8 +68,7 @@ public class MainMenuController implements Initializable {
     private AnchorPane timeRec;
     
     @FXML private Label clock;
-    
-    private static Map<String, VBox> vboxes = new HashMap<String, VBox>();
+ 
     
     private void loadProgramFileOf(Lignes ligne) throws FileNotFoundException{
         FileReader fr = null;
@@ -107,10 +111,9 @@ public class MainMenuController implements Initializable {
         for(Map.Entry<String, VBox> map : vboxes.entrySet()){
             for(Bus bus : Bus.buses){
                 if(map.getKey().equals(bus.getNomLigne())){
-                    //create a new button
-                    JFXButton button = new JFXButton(bus.getMarque());
-                    buttonsDesign(button);
-                    map.getValue().getChildren().add(button);
+                    //get the button from button hashmap
+                    buttonsDesign(buttons.get(bus.getMatricule()));
+                    map.getValue().getChildren().add(buttons.get(bus.getMatricule()));
                 }
             }
         }
@@ -121,6 +124,23 @@ public class MainMenuController implements Initializable {
         VBox vb = new VBox();
         vb.setId(ligne.getNomLigne());
         vboxes.put(ligne.getNomLigne(), vb);
+    }
+    
+     //FUNCTON THAT STORES BUTTONS 
+    private void storeButtons(Bus bus){
+        JFXButton button = new JFXButton(bus.getMarque());
+        button.setId(bus.getMatricule());
+        buttons.put(bus.getMatricule(), button);
+    }
+    
+    public static void updateButtons(Bus bus, JFXButton button){
+        for(Map.Entry<String, JFXButton> map : buttons.entrySet()){
+            //remove the old button and add the new one
+            if(map.getValue().equals(bus)){
+                buttons.remove(bus.getMatricule());
+                buttons.put(bus.getMatricule(), button);
+            }
+        }
     }
     
     //FUNCTON THAT RETURNS LIST OF BUSES OF A GIVEN LIGNE 
@@ -270,6 +290,8 @@ public class MainMenuController implements Initializable {
             button.getStylesheets().add("resources/menuStyle.css");
             button.setPrefWidth(858);
             button.setPrefHeight(100);     
+            button.setDisable(true);
+            
         }
         
     
@@ -395,9 +417,14 @@ public class MainMenuController implements Initializable {
             timeline.play();
            
             getEveryLigneBuses();
+            
+            for(Bus bus : Bus.buses){
+                storeButtons(bus);
+            }
              
             showBusesOfeveryLigne();
             
+            //LOADING SCHEDULE FILE AND PUT IT IN SCHEDULE LIST
             for(Lignes ligne : Lignes.lignes){
             try {
                 loadProgramFileOf(ligne);
@@ -408,8 +435,13 @@ public class MainMenuController implements Initializable {
             
             //SCHEDULE
             Bus.setEveryBusSchedule();
+            
            
-             
+                for(Lignes ligne : Lignes.lignes){
+                    BusQueue busQueue = new BusQueue(ligne);
+                    busQueue.run();
+                }
+     
     }
         
 }    

@@ -1,6 +1,6 @@
 b / ORAN / GREATWALL / 9999 / 56
 b / ORAN / toyota / 4547 / 5
-b / ORAN / higer / 487596 / 69
+b / ALGER / higer / 487596 / 69
 l / ALGER / BBA / TLEMSAN / 200
 l / ORAN / BBA / ADRAR / 600
 l / NIGERIA / BBA / NIGERIA / 100.0

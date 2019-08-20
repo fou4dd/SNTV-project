@@ -16,7 +16,6 @@
    <children>
       <VBox alignment="CENTER" layoutY="70.0" prefHeight="358.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
          <children>
-            <JFXButton fx:id="loadFileBtn" prefHeight="34.0" prefWidth="115.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="Load" />
             <JFXButton fx:id="accueil_btn" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="ACCUEIL" />
             <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="COMPTE" />
             <JFXButton fx:id="bus_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="BUS" textAlignment="CENTER" />
@@ -29,7 +28,7 @@
          <children>
             <AnchorPane fx:id="timeRec" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #323942; -fx-border-color: #323942;">
                <children>
-                  <Label fx:id="clock" prefHeight="70.0" prefWidth="200.0" styleClass="clock_label" stylesheets="@../resources/menuStyle.css" />
+                  <Label fx:id="clock" prefHeight="70.0" prefWidth="225.0" styleClass="clock_label" stylesheets="@../resources/menuStyle.css" />
                </children>
             </AnchorPane>
          </children>
