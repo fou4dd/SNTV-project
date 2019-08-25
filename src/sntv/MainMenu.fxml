@@ -122,5 +122,13 @@
             <Image url="@../icons8_Subtract_32px_1.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="reservation_page" layoutX="177.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0">
+         <children>
+            <JFXTextField fx:id="name" focusColor="#019ce1" labelFloat="true" layoutX="181.0" layoutY="74.0" prefHeight="48.0" prefWidth="349.0" promptText="Nom" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <JFXTextField fx:id="lastName" focusColor="#019ce1" labelFloat="true" layoutX="181.0" layoutY="177.0" prefHeight="48.0" prefWidth="349.0" promptText="Prenom" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <JFXTextField fx:id="idNumber" focusColor="#019ce1" labelFloat="true" layoutX="181.0" layoutY="293.0" prefHeight="48.0" prefWidth="349.0" promptText="N° pièce identité" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
+            <JFXButton fx:id="reserveBtn" buttonType="RAISED" layoutX="691.0" layoutY="341.0" prefHeight="48.0" prefWidth="160.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="Reserver" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -70,7 +70,6 @@ public class FXMLloginController implements Initializable {
                 Scene scene = new Scene(root);
                 Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
                 
-                
                 root.setOnMousePressed(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
                          xOffset = event.getSceneX();

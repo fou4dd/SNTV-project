@@ -7,10 +7,12 @@ package sntv;
 
 import static DB.DataBase.connect;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +23,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,8 +34,14 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
@@ -41,6 +51,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 /**
@@ -52,12 +65,17 @@ public class MainMenuController implements Initializable {
     private static Map<String, VBox> vboxes = new HashMap<String, VBox>();
     public static Map<String, JFXButton> buttons = new HashMap<String, JFXButton>();
     
+    private double xOffset = 0;
+    private double yOffset = 0;
+    
     @FXML
-    private AnchorPane accueil_page,bus_page,ligne_page,chauffeur_page,aide_page,contact_page;
+    private AnchorPane accueil_page,bus_page,ligne_page,chauffeur_page,aide_page,contact_page, reservation_page;
     
     @FXML
     private JFXButton accueil_btn,bus_btn,ligne_btn,chauffeur_btn,aide_btn,contact_btn
-                        , loadFileBtn;
+                        , reserveBtn;
+    
+    @FXML private JFXTextField name, lastName, idNumber;
 
     @FXML 
     private Accordion lignesList;
@@ -168,6 +186,7 @@ public class MainMenuController implements Initializable {
         chauffeur_page.setVisible(false);
         aide_page.setVisible(false);
         contact_page.setVisible(false);
+        reservation_page.setVisible(false);
     }
     
     //FONCTION RETURNS ANCHORPANE WITH ID FOR EACH LIGNE
@@ -294,6 +313,57 @@ public class MainMenuController implements Initializable {
             
         }
         
+        private void reserve() throws Exception{
+             for(Map.Entry<String, JFXButton> map : buttons.entrySet()){
+                map.getValue().setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                    reservation_page.setVisible(true);
+                    accueil_page.setVisible(false);
+                    //incriment the number of reservation to compare it to bus capacity
+                    //if equal capacity then make full variable true
+                    //THIS CODE IS MEANT TO GO TO RESERVATION CONTROLLER
+                    
+                }
+                
+                });
+                reserveBtn.setOnAction(new EventHandler<ActionEvent>(){
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println("clicked");
+                            for(Bus bus : Bus.buses){
+                                if(bus.getMatricule().equals(map.getKey())){
+                                    bus.resNumber++;
+                                    if(bus.getCapacite() == bus.resNumber){
+                                        bus.setFull(true);
+                                        System.out.println(bus.isFull());
+                                    }
+                                }
+                            }
+  
+                            //take the info from ui and create a passenger
+                            String firstName = name.getText().trim();
+                            String last = lastName.getText().trim();
+                            String idNum = idNumber.getText().trim();
+                            
+                            if(firstName.isEmpty() || last.isEmpty() || idNum.isEmpty()){
+                                Alert alert = new Alert(AlertType.ERROR);
+                                alert.setTitle("Format error");
+                                String content = "Empty fields error please enter some informatiom in the fields";
+                                alert.setContentText(content);
+                                alert.showAndWait();
+                                System.err.println("Fields empty !");
+                            }
+                            
+                            Passenger passenger = new Passenger(firstName, last, idNum);
+                            passenger.passenger.add(passenger);
+                            
+                            
+                        } 
+                    });
+            }
+        }
+        
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -304,6 +374,7 @@ public class MainMenuController implements Initializable {
         chauffeur_page.setVisible(false);
         aide_page.setVisible(false);
         contact_page.setVisible(false);
+        reservation_page.setVisible(false);
         
         accueil_btn.setOnAction(new EventHandler<ActionEvent>(){
             @Override
@@ -441,7 +512,26 @@ public class MainMenuController implements Initializable {
                     BusQueue busQueue = new BusQueue(ligne);
                     busQueue.run();
                 }
-     
+                    
+            try {
+             reserve();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            
+            /*
+            for(Lignes ligne : Lignes.lignes){
+                for(Bus bus : ligne.getListDesBus()){
+                    System.out.println("bus : " + bus.getMarque() + " " + bus.getNomLigne() +" " + bus.getMatricule());
+                } 
+            }
+            */
+            
+            //afficher les reservations
+            for(Reservation res : Reservation.reservation){
+                System.out.println("Reservation : " + res.getBus().getMarque() + " " + res.getLigne().getNomLigne() +
+                        " " + res.getPassenger().getFirstName());
+            } 
     }
         
 }    

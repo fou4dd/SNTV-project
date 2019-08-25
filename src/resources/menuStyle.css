@@ -62,25 +62,17 @@
 
 .bus_buttons{
     -fx-font: normal 25 "Calibri";
-    -fx-background-color: #F05150;
-    -fx-border-color: #252830;
+    -fx-background-color: #EFF3F6;
+    -fx-border-color: #EFF3F6;
     -fx-border-width: 1px;
     -fx-text-fill: #535058;
 }
 
 .bus_buttons:hover{
     -fx-text-fill: #252022;
-    -fx-background-color: #F05150;
+    -fx-background-color: #57B856;
     -fx-border-color: #252830;
     -fx-cursor: hand;
-}
-
-.bus_buttons_special{
-    -fx-background-color: #31B876;
-}
-
-.bus_buttons_special:hover{
-    -fx-background-color: #31B876;
 }
 
 .textArea{
