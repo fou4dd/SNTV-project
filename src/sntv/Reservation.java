@@ -26,8 +26,11 @@ public class Reservation {
         this.passenger = passenger;
         this.resCount++;
     }
-    
-    
+
+    public Reservation() {
+        
+    }
+ 
     public Lignes getLigne() {
         return ligne;
     }

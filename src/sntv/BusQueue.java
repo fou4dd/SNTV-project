@@ -2,12 +2,9 @@ package sntv;
 
 import com.jfoenix.controls.JFXButton;
 import java.time.LocalTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.AnimationTimer; 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Duration;
 
 
 public class BusQueue {
@@ -22,22 +19,16 @@ public class BusQueue {
     
     public void run(){
 
-        //Iterator <Bus> iterator = queue.iterator();
-        
-        int sizeOfBusList = ligne.getListDesBus().size();
-        
-        
-        for(Bus bus : ligne.getListDesBus()){
+        for(Bus bus : this.ligne.getListDesBus()){
              queue.add(bus);
         }
-        
         
         timer = new AnimationTimer(){
             @Override
             public void handle(long now) {
                 
                for(Bus bus : queue){
-                   if(!(bus.isFull())){
+                   if(bus.isFull() == false){
                        if(java.time.LocalTime.now().isAfter(localTimeOf(bus.getSchedule().getLoadTime()))){
                             //make button enabled and the color green
                             JFXButton button = MainMenuController.buttons.get(bus.getMatricule());
@@ -45,16 +36,17 @@ public class BusQueue {
                             button.getStyleClass().add("bus_buttons_special");
                             MainMenuController.updateButtons(bus, button);
                        }
-                   }if (bus.isFull() == true || java.time.LocalTime.now().isAfter(localTimeOf(bus.getSchedule().getStartTime()))){
+                    } if (bus.isFull() == true || java.time.LocalTime.now().isAfter(localTimeOf(bus.getSchedule().getStartTime()))){
                            //put the bus at the end of the Queue list  
                             JFXButton button = MainMenuController.buttons.get(bus.getMatricule());
                             button.setDisable(true);
                             button.getStyleClass().add("bus_buttons");
                             MainMenuController.updateButtons(bus, button);   
-                            //queue.set(queue.size() - 1, bus);
-                           continue;
+                            
                        }
                }
+               
+               
                 
             }
         };timer.start();

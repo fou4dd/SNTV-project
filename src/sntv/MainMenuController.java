@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,12 +19,12 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -34,11 +33,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -47,13 +42,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 /**
@@ -87,6 +77,7 @@ public class MainMenuController implements Initializable {
     
     @FXML private Label clock;
  
+    int count = 0 ;
     
     private void loadProgramFileOf(Lignes ligne) throws FileNotFoundException{
         FileReader fr = null;
@@ -156,7 +147,7 @@ public class MainMenuController implements Initializable {
             //remove the old button and add the new one
             if(map.getValue().equals(bus)){
                 buttons.remove(bus.getMatricule());
-                buttons.put(bus.getMatricule(), button);
+                
             }
         }
     }
@@ -188,13 +179,6 @@ public class MainMenuController implements Initializable {
         contact_page.setVisible(false);
         reservation_page.setVisible(false);
     }
-    
-    //FONCTION RETURNS ANCHORPANE WITH ID FOR EACH LIGNE
-        private HBox addHBox(String ID){
-            HBox box = new HBox();
-            box.setId(ID);
-            return box;
-        }
     
         /*
             LOAD FiLE DATA
@@ -320,26 +304,28 @@ public class MainMenuController implements Initializable {
                     public void handle(ActionEvent event) {
                     reservation_page.setVisible(true);
                     accueil_page.setVisible(false);
-                    //incriment the number of reservation to compare it to bus capacity
-                    //if equal capacity then make full variable true
-                    //THIS CODE IS MEANT TO GO TO RESERVATION CONTROLLER
-                    
-                }
                 
-                });
+                
+                
+             
                 reserveBtn.setOnAction(new EventHandler<ActionEvent>(){
                         @Override
                         public void handle(ActionEvent event) {
                             System.out.println("clicked");
                             for(Bus bus : Bus.buses){
-                                if(bus.getMatricule().equals(map.getKey())){
-                                    bus.resNumber++;
-                                    if(bus.getCapacite() == bus.resNumber){
-                                        bus.setFull(true);
-                                        System.out.println(bus.isFull());
+                                if(map.getValue().getId() == bus.getMatricule()){
+                                Reservation reservation = new Reservation();
+                                bus.getReservations().add(reservation);
+                                bus.setReservations(bus.getReservations());
+                                if(bus.getCapacite() == bus.getReservations().size()){
+                                    bus.setFull(true);
+                                    //map.getValue().setDisable(true);
+                                    reservation_page.setVisible(false);
+                                    accueil_page.setVisible(true);
+                                    System.out.println("is full : " + bus.isFull());
                                     }
-                                }
-                            }
+                                
+                            
   
                             //take the info from ui and create a passenger
                             String firstName = name.getText().trim();
@@ -353,15 +339,18 @@ public class MainMenuController implements Initializable {
                                 alert.setContentText(content);
                                 alert.showAndWait();
                                 System.err.println("Fields empty !");
+                            }else{
+                                Passenger passenger = new Passenger(firstName, last, idNum);
+                                passenger.passenger.add(passenger);
                             }
                             
-                            Passenger passenger = new Passenger(firstName, last, idNum);
-                            passenger.passenger.add(passenger);
-                            
-                            
-                        } 
+                        }
+                            }
+                        }
                     });
-            }
+                    } 
+                });
+             }
         }
         
     
@@ -448,28 +437,7 @@ public class MainMenuController implements Initializable {
                 } catch (SQLException ex) {
                     System.err.println("Could not load buses to DB");
                 }
-            
-        /*
-             //LOADNG FILE
-            loadFileBtn.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                
-                try {
-                    loadDataToDB();
-                } catch (SQLException ex) {
-                 ex.printStackTrace();
-                 System.err.println("Could not load buses to DB");
-                }
-                
-                //AFFICHER LES LIGNES DANS LA LIST DES LIGNES COMME TITLEDPANE 
-        
-                for(Lignes ligne : Lignes.lignes){
-                    lignesList.getPanes().add(new TitledPane(ligne.getNomLigne(), vboxes.get(ligne.getNomLigne())));
-                }
-            }
-            });
-        */   
+      
             
         //CLOCK AND DATE
         final DateFormat format = DateFormat.getInstance();
@@ -512,20 +480,32 @@ public class MainMenuController implements Initializable {
                     BusQueue busQueue = new BusQueue(ligne);
                     busQueue.run();
                 }
-                    
+            /*       
             try {
              reserve();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            */
             
-            /*
+            AnimationTimer timer = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+                try {
+                    reserve();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+                
+            };timer.start();
+            
             for(Lignes ligne : Lignes.lignes){
                 for(Bus bus : ligne.getListDesBus()){
-                    System.out.println("bus : " + bus.getMarque() + " " + bus.getNomLigne() +" " + bus.getMatricule());
+                    System.out.println("bus : " + bus.getMarque() + " " + bus.getNomLigne() +" " + bus.getMatricule() + " " + bus.getCapacite());
                 } 
             }
-            */
+            
             
             //afficher les reservations
             for(Reservation res : Reservation.reservation){

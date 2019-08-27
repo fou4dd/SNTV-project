@@ -12,8 +12,9 @@ public class Bus {
     private String matricule;
     private int capacite;
     private Schedule schedule;
-    public int resNumber = 0;
     private boolean full = false;
+    
+    private ObservableList<Reservation> reservations = FXCollections.observableArrayList();
     
     public static ObservableList<Bus> buses = FXCollections.observableArrayList();
 
@@ -91,10 +92,6 @@ public class Bus {
     }
 
     public boolean isFull() {
-        if(this.capacite == this.resNumber){
-            this.full = true;
-        }else
-            this.full = false;
         return full;
     }
 
@@ -102,12 +99,12 @@ public class Bus {
         this.full = full;
     }
 
-    
+    public ObservableList<Reservation> getReservations() {
+        return reservations;
+    }
 
-    
-    
-    
-    
-    
-    
+    public void setReservations(ObservableList<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
 }
