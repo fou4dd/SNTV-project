@@ -15,6 +15,9 @@ public class Voyage {
         this.startDate = startDate;
     }
 
+    public Voyage() {
+    }
+    
     public Bus getBus() {
         return bus;
     }

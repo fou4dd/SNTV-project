@@ -7,6 +7,7 @@ package sntv;
 
 import static DB.DataBase.connect;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,8 +22,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -38,13 +37,16 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 
 /**
  * FXML Controller class
@@ -70,14 +72,16 @@ public class MainMenuController implements Initializable {
     @FXML 
     private Accordion lignesList;
     
-    @FXML private ImageView exit, substract; 
+    @FXML private ImageView exit, minimize; 
     
     @FXML
     private AnchorPane timeRec;
     
     @FXML private Label clock;
- 
-    int count = 0 ;
+    
+    @FXML private JFXListView listOfBuses;
+    @FXML private JFXListView listOfLignes;
+    @FXML private JFXListView listOfChauffeur;
     
     private void loadProgramFileOf(Lignes ligne) throws FileNotFoundException{
         FileReader fr = null;
@@ -342,6 +346,17 @@ public class MainMenuController implements Initializable {
                             }else{
                                 Passenger passenger = new Passenger(firstName, last, idNum);
                                 passenger.passenger.add(passenger);
+                                Reservation res;
+                                Voyage voyage = new Voyage();
+                                for(Lignes ligne : Lignes.lignes){
+                                    if(ligne.getNomLigne().equals(bus.getNomLigne())){
+                                        res = new Reservation(ligne, bus, passenger);       
+                                        Reservation.reservation.add(res);
+                                        voyage.setBus(bus);
+                                        voyage.setLigne(ligne);
+                                        voyage.setStartDate(java.time.LocalDate.now().toString());
+                                    }   
+                                } 
                             }
                             
                         }
@@ -351,6 +366,43 @@ public class MainMenuController implements Initializable {
                     } 
                 });
              }
+        }
+        
+        private void populateListOfBuses(){
+            String head = "Nom ligne                                                         "
+                        + "Marque                                                            "
+                        + "Matricule                                                         "
+                        + "Capacite                                                          ";
+                listOfBuses.getItems().add(head);
+                listOfBuses.getItems().add("");
+            for(Bus bus : Bus.buses){          
+                listOfBuses.getItems().add(bus.toString());
+            }
+        }
+        
+        private void populateListOfLignes(){
+            String head = "Nom ligne                                                         "
+                        + "SNTV depart                                                       "
+                        + "SNTV arrivee                                                      "
+                        + "Prix                                                              ";
+                listOfLignes.getItems().add(head);
+                listOfLignes.getItems().add("");
+            for(Lignes ligne : Lignes.lignes){
+                listOfLignes.getItems().add(ligne.toString());
+            }
+        }
+        
+        private void populateListOfChauffeur(){
+            String head = "Nom                                                  "
+                        + "Prenom                                               "
+                        + "Nationalite                                          "
+                        + "Adresse                                              "
+                        + "Telephone                                            ";
+                listOfChauffeur.getItems().add(head);
+                listOfChauffeur.getItems().add("");
+            for(Chauffeur chauffeur : Chauffeur.chauffeur){
+                listOfChauffeur.getItems().add(chauffeur.toString());
+            }
         }
         
     
@@ -419,10 +471,8 @@ public class MainMenuController implements Initializable {
             public void handle(MouseEvent event) {
                 System.exit(0);
             }
-    
-    
         });
-            
+           
             loadFile("data");
             
             //ADDING LIGNES AS TITLEDPANE AND ALSO ADDING VBOXES
@@ -500,18 +550,16 @@ public class MainMenuController implements Initializable {
                 
             };timer.start();
             
+            populateListOfBuses();
+            populateListOfLignes();
+            populateListOfChauffeur();
+            
             for(Lignes ligne : Lignes.lignes){
                 for(Bus bus : ligne.getListDesBus()){
                     System.out.println("bus : " + bus.getMarque() + " " + bus.getNomLigne() +" " + bus.getMatricule() + " " + bus.getCapacite());
                 } 
             }
-            
-            
-            //afficher les reservations
-            for(Reservation res : Reservation.reservation){
-                System.out.println("Reservation : " + res.getBus().getMarque() + " " + res.getLigne().getNomLigne() +
-                        " " + res.getPassenger().getFirstName());
-            } 
+              
     }
         
 }    

@@ -45,9 +45,6 @@ public class BusQueue {
                             
                        }
                }
-               
-               
-                
             }
         };timer.start();
         

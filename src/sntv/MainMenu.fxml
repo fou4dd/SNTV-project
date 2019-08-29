@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="pane" prefHeight="543.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sntv.MainMenuController">
+<AnchorPane prefHeight="543.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sntv.MainMenuController">
    <children>
       <VBox alignment="CENTER" layoutY="70.0" prefHeight="358.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
          <children>
@@ -51,52 +54,24 @@
          </children></AnchorPane>
       <AnchorPane fx:id="accueil_page" layoutX="179.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <ScrollPane prefHeight="406.0" prefWidth="883.0">
+            <ScrollPane prefHeight="414.0" prefWidth="883.0">
                <content>
-                  <Accordion fx:id="lignesList" prefHeight="393.0" prefWidth="858.0" />
+                  <Accordion fx:id="lignesList" prefHeight="413.0" prefWidth="881.0" />
                </content>
             </ScrollPane>
          </children></AnchorPane>
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
       <AnchorPane fx:id="bus_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <Label layoutX="63.0" layoutY="47.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Marque" textAlignment="CENTER" />
-            <JFXTextField layoutX="301.0" layoutY="47.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="63.0" layoutY="129.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Matricule" textAlignment="CENTER" />
-            <JFXTextField layoutX="301.0" layoutY="129.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="63.0" layoutY="214.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Capacite" textAlignment="CENTER" />
-            <JFXTextField layoutX="301.0" layoutY="214.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="63.0" layoutY="301.0" prefHeight="40.0" prefWidth="184.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Ligne" textAlignment="CENTER" />
-            <JFXTextField layoutX="304.0" layoutY="301.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <JFXButton layoutX="699.0" layoutY="341.0" prefHeight="48.0" prefWidth="160.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="AJOUTER" />
+            <JFXListView fx:id="listOfBuses" prefHeight="414.0" prefWidth="883.0" />
          </children></AnchorPane>
       <AnchorPane fx:id="ligne_page" layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <Label layoutX="82.0" layoutY="51.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="nom" />
-            <JFXTextField layoutX="298.0" layoutY="51.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="82.0" layoutY="128.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="SNTV Depart" />
-            <JFXTextField layoutX="298.0" layoutY="128.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="82.0" layoutY="207.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="SNTV arrive" />
-            <JFXTextField layoutX="298.0" layoutY="207.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="82.0" layoutY="285.0" prefHeight="40.0" prefWidth="178.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Prix" />
-            <JFXTextField layoutX="298.0" layoutY="285.0" prefHeight="40.0" prefWidth="349.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <JFXButton layoutX="696.0" layoutY="339.0" prefHeight="48.0" prefWidth="160.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="AJOUTER" />
+            <JFXListView fx:id="listOfLignes" prefHeight="414.0" prefWidth="883.0" />
          </children></AnchorPane>
       <AnchorPane fx:id="chauffeur_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <Label layoutX="84.0" layoutY="39.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="nom" />
-            <JFXTextField layoutX="295.0" layoutY="37.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="84.0" layoutY="93.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="prenom" />
-            <JFXTextField layoutX="295.0" layoutY="91.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="84.0" layoutY="148.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Nationalite" />
-            <JFXTextField layoutX="295.0" layoutY="146.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="84.0" layoutY="203.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Adr" />
-            <JFXTextField layoutX="295.0" layoutY="201.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="84.0" layoutY="261.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Tel" />
-            <JFXTextField layoutX="295.0" layoutY="259.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <Label layoutX="84.0" layoutY="320.0" prefHeight="28.0" prefWidth="134.0" styleClass="labels" stylesheets="@../resources/menuStyle.css" text="Bus" />
-            <JFXTextField layoutX="295.0" layoutY="318.0" prefHeight="26.0" prefWidth="369.0" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
-            <JFXButton layoutX="712.0" layoutY="350.0" prefHeight="40.0" prefWidth="150.0" styleClass="apply-buttons" stylesheets="@../resources/menuStyle.css" text="Ajouter" />
+            <JFXListView fx:id="listOfChauffeur" prefHeight="414.0" prefWidth="883.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
       <AnchorPane fx:id="aide_page" layoutX="178.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
@@ -110,7 +85,7 @@
                   <Image url="@../icons8_Phone_104px_3.png" />
                </image>
             </ImageView>
-            <JFXTextArea editable="false" focusColor="WHITE" layoutX="210.0" layoutY="207.0" text="                           Report any trouble or feedback right back to us &#10;&#10;                                                         Contact us&#10;&#10;                                             &#10;                                              fouedsedrati@gmal.com" unFocusColor="WHITE" />
+            <JFXTextArea editable="false" focusColor="WHITE" layoutX="210.0" layoutY="207.0" text="                           Report any troubles or feedback right back to us &#10;&#10;                                                         Contact us:&#10;&#10;                                             &#10;                                              fouedsedrati@gmal.com" unFocusColor="WHITE" />
          </children></AnchorPane>
       <ImageView fx:id="exit" fitHeight="32.0" fitWidth="40.0" layoutX="1016.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -122,7 +97,7 @@
             <Image url="@../icons8_Subtract_32px_1.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="reservation_page" layoutX="177.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0">
+      <AnchorPane fx:id="reservation_page" layoutX="177.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
             <JFXTextField fx:id="name" focusColor="#019ce1" labelFloat="true" layoutX="181.0" layoutY="74.0" prefHeight="48.0" prefWidth="349.0" promptText="Nom" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
             <JFXTextField fx:id="lastName" focusColor="#019ce1" labelFloat="true" layoutX="181.0" layoutY="177.0" prefHeight="48.0" prefWidth="349.0" promptText="Prenom" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />
@@ -131,4 +106,10 @@
          </children>
       </AnchorPane>
    </children>
+   <opaqueInsets>
+      <Insets top="12.0" />
+   </opaqueInsets>
+   <effect>
+      <DropShadow height="139.49" radius="72.17750000000001" spread="0.16" width="151.22" />
+   </effect>
 </AnchorPane>

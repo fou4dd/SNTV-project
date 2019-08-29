@@ -81,6 +81,12 @@ public class Chauffeur {
         this.Tel = Tel;
     }
     
-    
+    public String toString(){
+        return this.getNom()+ "                                                      "
+                + "" + this.getPrenom()+ "                                           "
+                + "" + this.getNat()+ "                                              "
+                + "" + this.getAdr()+ "                                              "
+                + "" + this.getTel();
+    }
     
 }

@@ -84,8 +84,12 @@ public class Lignes {
         this.listDesBus = listDesBus;
     }
     
-    
-    
-    
-    
+    @Override
+    public String toString(){
+        return this.getNomLigne() + "                                                             "
+        + "" + this.getDepart()+    "                                                             "
+        + "" + this.getArrive() +   "                                                             "
+        + "" + this.getPrix();
+    }
+   
 }

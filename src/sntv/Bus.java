@@ -106,5 +106,13 @@ public class Bus {
     public void setReservations(ObservableList<Reservation> reservations) {
         this.reservations = reservations;
     }
+    
+    @Override
+    public String toString(){
+        return this.getNomLigne() + "                                                               "
+                + "" + this.getMarque() + "                                                         "
+                + "" + this.getMatricule() + "                                                      "
+                + "" + this.getCapacite();
+    }
 
 }

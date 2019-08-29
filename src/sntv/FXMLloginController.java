@@ -6,6 +6,7 @@
 package sntv;
 
 import static DB.DataBase.connect;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -26,7 +27,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -64,9 +67,10 @@ public class FXMLloginController implements Initializable {
         }
         
         for(User user : list){
-            if(usernameID.getText().equals(user.getUsername()) && passwordID.getText().equals(user.getPassword())){
+            if(usernameID.getText().trim().equals(user.getUsername()) && passwordID.getText().trim().equals(user.getPassword())){
                 
                 Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+                root.setEffect(new DropShadow(100, Color.CORAL));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
                 
@@ -77,13 +81,12 @@ public class FXMLloginController implements Initializable {
                     }
                 });
                 root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
+                @Override
                 public void handle(MouseEvent event) {
                     stage.setX(event.getScreenX() - xOffset);
                     stage.setY(event.getScreenY() - yOffset);
                 }
-             });
-                
+                });
                 
                 stage.setScene(scene);
                 
