@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -63,16 +63,39 @@
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
       <AnchorPane fx:id="bus_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <JFXListView fx:id="listOfBuses" prefHeight="414.0" prefWidth="883.0" />
+            <TableView fx:id="busTableView" prefHeight="414.0" prefWidth="883.0" stylesheets="@../resources/table_view_design.css">
+              <columns>
+                <TableColumn fx:id="nomLigne" prefWidth="220.75" text="Nom ligne" />
+                <TableColumn fx:id="marque" prefWidth="220.75" text="Marque" />
+                  <TableColumn fx:id="matricule" prefWidth="220.75" text="Matricule" />
+                  <TableColumn fx:id="capacite" prefWidth="220.75" text="Capacite" />
+              </columns>
+            </TableView>
          </children></AnchorPane>
       <AnchorPane fx:id="ligne_page" layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <JFXListView fx:id="listOfLignes" prefHeight="414.0" prefWidth="883.0" />
+            <TableView fx:id="lignesTable" prefHeight="414.0" prefWidth="883.0" stylesheets="@../resources/table_view_design.css">
+              <columns>
+                <TableColumn fx:id="ligneName" prefWidth="220.75" text="Nom ligne" />
+                <TableColumn fx:id="depart" prefWidth="220.75" text="SNTV depart" />
+                  <TableColumn fx:id="arrive" prefWidth="220.75" text="SNTV arrive" />
+                  <TableColumn fx:id="prix" prefWidth="220.75" text="Prix" />
+              </columns>
+            </TableView>
          </children></AnchorPane>
-      <AnchorPane fx:id="chauffeur_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
+      <AnchorPane fx:id="chauffeur_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0">
          <children>
-            <JFXListView fx:id="listOfChauffeur" prefHeight="414.0" prefWidth="883.0" />
-         </children></AnchorPane>
+            <TableView fx:id="chauffeurTable" prefHeight="414.0" prefWidth="883.0" stylesheets="@../resources/table_view_design.css">
+              <columns>
+                <TableColumn fx:id="nom" prefWidth="176.6" text="Nom" />
+                <TableColumn fx:id="prenom" prefWidth="176.6" text="Prenom" />
+                  <TableColumn fx:id="nat" prefWidth="176.6" text="Nationalite" />
+                  <TableColumn fx:id="adr" prefWidth="176.6" text="Adresse" />
+                  <TableColumn fx:id="tel" prefWidth="176.6" text="Telephone" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
       <AnchorPane fx:id="aide_page" layoutX="178.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
@@ -109,7 +132,4 @@
    <opaqueInsets>
       <Insets top="12.0" />
    </opaqueInsets>
-   <effect>
-      <DropShadow height="139.49" radius="72.17750000000001" spread="0.16" width="151.22" />
-   </effect>
 </AnchorPane>

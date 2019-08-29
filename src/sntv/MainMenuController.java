@@ -83,6 +83,25 @@ public class MainMenuController implements Initializable {
     @FXML private JFXListView listOfLignes;
     @FXML private JFXListView listOfChauffeur;
     
+    @FXML private TableView<Bus> busTableView;
+    @FXML private TableColumn<Bus, String> nomLigne;
+    @FXML private TableColumn<Bus, String> marque;
+    @FXML private TableColumn<Bus, String> matricule;
+    @FXML private TableColumn<Bus, Integer> capacite;
+    
+    @FXML private TableView<Lignes> lignesTable;
+    @FXML private TableColumn<Lignes, String> ligneName;
+    @FXML private TableColumn<Lignes, String> depart;
+    @FXML private TableColumn<Lignes, String> arrive;
+    @FXML private TableColumn<Lignes, Float> prix;
+    
+    @FXML private TableView<Chauffeur> chauffeurTable;
+    @FXML private TableColumn<Chauffeur, String> nom;
+    @FXML private TableColumn<Chauffeur, String> prenom;
+    @FXML private TableColumn<Chauffeur, String> nat;
+    @FXML private TableColumn<Chauffeur, String> adr;
+    @FXML private TableColumn<Chauffeur, String> tel;
+
     private void loadProgramFileOf(Lignes ligne) throws FileNotFoundException{
         FileReader fr = null;
         try {
@@ -369,40 +388,31 @@ public class MainMenuController implements Initializable {
         }
         
         private void populateListOfBuses(){
-            String head = "Nom ligne                                                         "
-                        + "Marque                                                            "
-                        + "Matricule                                                         "
-                        + "Capacite                                                          ";
-                listOfBuses.getItems().add(head);
-                listOfBuses.getItems().add("");
-            for(Bus bus : Bus.buses){          
-                listOfBuses.getItems().add(bus.toString());
-            }
+            nomLigne.setCellValueFactory(new PropertyValueFactory<Bus, String>("nomLigne"));
+            marque.setCellValueFactory(new PropertyValueFactory<Bus, String>("marque"));
+            matricule.setCellValueFactory(new PropertyValueFactory<Bus, String>("matricule"));
+            capacite.setCellValueFactory(new PropertyValueFactory<Bus, Integer>("capacite"));
+            
+            busTableView.setItems(Bus.buses);       
         }
         
         private void populateListOfLignes(){
-            String head = "Nom ligne                                                         "
-                        + "SNTV depart                                                       "
-                        + "SNTV arrivee                                                      "
-                        + "Prix                                                              ";
-                listOfLignes.getItems().add(head);
-                listOfLignes.getItems().add("");
-            for(Lignes ligne : Lignes.lignes){
-                listOfLignes.getItems().add(ligne.toString());
-            }
+            ligneName.setCellValueFactory(new PropertyValueFactory<Lignes, String>("nomLigne"));
+            depart.setCellValueFactory(new PropertyValueFactory<Lignes, String>("depart"));
+            arrive.setCellValueFactory(new PropertyValueFactory<Lignes, String>("arrive"));
+            prix.setCellValueFactory(new PropertyValueFactory<Lignes, Float>("prix"));
+            
+            lignesTable.setItems(Lignes.lignes);
         }
         
         private void populateListOfChauffeur(){
-            String head = "Nom                                                  "
-                        + "Prenom                                               "
-                        + "Nationalite                                          "
-                        + "Adresse                                              "
-                        + "Telephone                                            ";
-                listOfChauffeur.getItems().add(head);
-                listOfChauffeur.getItems().add("");
-            for(Chauffeur chauffeur : Chauffeur.chauffeur){
-                listOfChauffeur.getItems().add(chauffeur.toString());
-            }
+            nom.setCellValueFactory(new PropertyValueFactory<Chauffeur, String>("nom"));
+            prenom.setCellValueFactory(new PropertyValueFactory<Chauffeur, String>("prenom"));
+            nat.setCellValueFactory(new PropertyValueFactory<Chauffeur, String>("Nat"));
+            adr.setCellValueFactory(new PropertyValueFactory<Chauffeur, String>("Adr"));
+            tel.setCellValueFactory(new PropertyValueFactory<Chauffeur, String>("Tel"));
+            
+            chauffeurTable.setItems(Chauffeur.chauffeur);
         }
         
     
