@@ -13,15 +13,24 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -101,6 +110,8 @@ public class MainMenuController implements Initializable {
     @FXML private TableColumn<Chauffeur, String> nat;
     @FXML private TableColumn<Chauffeur, String> adr;
     @FXML private TableColumn<Chauffeur, String> tel;
+    
+    private boolean HaveIRun = false;
 
     private void loadProgramFileOf(Lignes ligne) throws FileNotFoundException{
         FileReader fr = null;
@@ -252,7 +263,7 @@ public class MainMenuController implements Initializable {
             
             String query = "INSERT INTO Bus (nomLigne, Marque, Matricule, Capacite)"
                     + "VALUES (?, ?, ?, ?)";
-            
+
             String query2 = "INSERT INTO Lignes (nomLigne, `Sntv Depart`, `SNTV Arrive`, prix)"
                     + "VALUES (?, ?, ?, ?)";
             
@@ -268,6 +279,7 @@ public class MainMenuController implements Initializable {
             ps = connection.prepareStatement(query);
             ps2 = connection.prepareStatement(query2);
             ps3 = connection.prepareStatement(query3);
+            
             
             for(Bus bus : Bus.buses){
                 ps.setString(1, bus.getNomLigne());
@@ -365,17 +377,22 @@ public class MainMenuController implements Initializable {
                             }else{
                                 Passenger passenger = new Passenger(firstName, last, idNum);
                                 passenger.passenger.add(passenger);
-                                Reservation res;
-                                Voyage voyage = new Voyage();
+                                
                                 for(Lignes ligne : Lignes.lignes){
                                     if(ligne.getNomLigne().equals(bus.getNomLigne())){
-                                        res = new Reservation(ligne, bus, passenger);       
+                                        Reservation res = new Reservation(ligne, bus, passenger);       
                                         Reservation.reservation.add(res);
-                                        voyage.setBus(bus);
-                                        voyage.setLigne(ligne);
-                                        voyage.setStartDate(java.time.LocalDate.now().toString());
+                                        Voyage voyage = new Voyage(bus, ligne, java.time.LocalDate.now().toString());
+                                        Voyage.voyages.add(voyage);
+                                        /*
+                                        try {
+                                            loadPVtoDataBase(passenger, voyage);
+                                        } catch (SQLException ex) {
+                                            ex.printStackTrace();
+                                        }*/
                                     }   
-                                } 
+                                }
+                     
                             }
                             
                         }
@@ -385,6 +402,48 @@ public class MainMenuController implements Initializable {
                     } 
                 });
              }
+        }
+        
+        private void loadPVtoDataBase(Passenger passenger, Voyage voyage) throws SQLException{
+            Connection connection = connect();
+            
+            String query1 = "INSERT INTO Passager(NPiceDidentite, nom, prenom) "
+                    + "VALUES('"+passenger.getIdNumber()+"', '"+passenger.getFirstName()+"', '"+passenger.getLastName()+"')";
+            
+            String query2 = "INSERT INTO Voyage(NBus, DateDepart) "
+                    + "VALUES((SELECT NBus from Bus WHERE Matricule = '"+voyage.getBus().getMatricule()+"'), '"+voyage.getStartDate()+"')";
+            
+            PreparedStatement ps1 = connection.prepareStatement(query1);
+            PreparedStatement ps2 = connection.prepareStatement(query2);
+
+            ps1.execute();
+            ps2.execute();
+            
+            ps1.close();
+            ps2.close();
+        }
+
+        private boolean returnHaveIRunValue() throws FileNotFoundException{
+             File file = new File("state_track.txt");
+             Scanner scnr = new Scanner(file);
+             boolean flag = false;
+            //Reading each line of file using Scanner class
+            int lineNumber = 1;
+            while(scnr.hasNextLine()){
+                String line = scnr.nextLine();
+                if(line.equals("true")){
+                    flag = true;
+                }else
+                    flag = false;
+            }    
+            return flag;
+        }
+        
+        private void putValueInStateTrack(boolean value) throws IOException{
+            File file = new File("state_track.txt");
+            FileWriter filewriter = new FileWriter(file);
+            filewriter.write(String.valueOf(value));
+            filewriter.close();
         }
         
         private void populateListOfBuses(){
@@ -492,12 +551,35 @@ public class MainMenuController implements Initializable {
                 }
             
             
+            AnimationTimer t = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
                 try {
-                     loadDataToDB();
+            if(returnHaveIRunValue() == false){
+                try {
+                    loadDataToDB();
+                    putValueInStateTrack(true);
                 } catch (SQLException ex) {
                     System.err.println("Could not load buses to DB");
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (UnsupportedEncodingException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-      
+            }
+            
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+                
+            };t.start();
+            
+        
             
         //CLOCK AND DATE
         final DateFormat format = DateFormat.getInstance();
@@ -563,13 +645,8 @@ public class MainMenuController implements Initializable {
             populateListOfBuses();
             populateListOfLignes();
             populateListOfChauffeur();
-            
-            for(Lignes ligne : Lignes.lignes){
-                for(Bus bus : ligne.getListDesBus()){
-                    System.out.println("bus : " + bus.getMarque() + " " + bus.getNomLigne() +" " + bus.getMatricule() + " " + bus.getCapacite());
-                } 
-            }
-              
+           
+       
     }
         
 }    

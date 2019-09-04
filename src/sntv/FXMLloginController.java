@@ -6,7 +6,6 @@
 package sntv;
 
 import static DB.DataBase.connect;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -70,7 +69,6 @@ public class FXMLloginController implements Initializable {
             if(usernameID.getText().trim().equals(user.getUsername()) && passwordID.getText().trim().equals(user.getPassword())){
                 
                 Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-                root.setEffect(new DropShadow(100, Color.CORAL));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
                 

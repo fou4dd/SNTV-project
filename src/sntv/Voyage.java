@@ -1,17 +1,20 @@
 package sntv;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 public class Voyage {
     
     private Bus bus;
     private Lignes ligne;
-    private Chauffeur chauffeur;
     private String startDate;
+    
+    public static ObservableList<Voyage> voyages = FXCollections.observableArrayList();
 
-    public Voyage(Bus bus, Lignes ligne, Chauffeur chauffeur, String startDate) {
+    public Voyage(Bus bus, Lignes ligne, String startDate) {
         this.bus = bus;
         this.ligne = ligne;
-        this.chauffeur = chauffeur;
         this.startDate = startDate;
     }
 
@@ -34,14 +37,6 @@ public class Voyage {
         this.ligne = ligne;
     }
 
-    public Chauffeur getChauffeur() {
-        return chauffeur;
-    }
-
-    public void setChauffeur(Chauffeur chauffeur) {
-        this.chauffeur = chauffeur;
-    }
-
     public String getStartDate() {
         return startDate;
     }
@@ -53,3 +48,4 @@ public class Voyage {
     
     
 }
+

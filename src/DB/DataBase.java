@@ -27,10 +27,8 @@ public class DataBase {
             
         }catch(Exception e){
             
-            System.out.println("Connection failed");
-            
+            System.out.println("Connection failed");    
         }
-        
         return connection;
     } 
     
