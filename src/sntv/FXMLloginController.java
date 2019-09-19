@@ -26,9 +26,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -39,6 +38,7 @@ public class FXMLloginController implements Initializable {
     
     @FXML JFXTextField usernameID;
     @FXML JFXPasswordField passwordID;
+    @FXML ImageView substract;
     private double xOffset = 0;
     private double yOffset = 0;
     
@@ -91,7 +91,7 @@ public class FXMLloginController implements Initializable {
                 System.out.println("LOGIN");
                 break;
             
-            
+           
                
             }
             

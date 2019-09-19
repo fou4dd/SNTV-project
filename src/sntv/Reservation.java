@@ -6,36 +6,26 @@ import javafx.collections.ObservableList;
 
 public class Reservation {
     
-    private Lignes ligne;
-    private Bus bus;
+    private Voyage voyage;
     private Passenger passenger;  
     
     public static ObservableList<Reservation> reservation = FXCollections.observableArrayList();
 
-    public Reservation(Lignes ligne, Bus bus, Passenger passenger) {
-        this.ligne = ligne;
-        this.bus = bus;
+    public Reservation(Voyage voyage, Passenger passenger) {
+        this.voyage = voyage;
         this.passenger = passenger;
     }
 
     public Reservation() {
         
     }
- 
-    public Lignes getLigne() {
-        return ligne;
+
+    public Voyage getVoyage() {
+        return voyage;
     }
 
-    public void setLigne(Lignes ligne) {
-        this.ligne = ligne;
-    }
-
-    public Bus getBus() {
-        return bus;
-    }
-
-    public void setBus(Bus bus) {
-        this.bus = bus;
+    public void setVoyage(Voyage voyage) {
+        this.voyage = voyage;
     }
 
     public Passenger getPassenger() {

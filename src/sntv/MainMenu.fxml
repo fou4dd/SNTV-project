@@ -115,11 +115,6 @@
             <Image url="@../icons8_Delete_32px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="substract" fitHeight="32.0" fitWidth="40.0" layoutX="971.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons8_Subtract_32px_1.png" />
-         </image>
-      </ImageView>
       <AnchorPane fx:id="reservation_page" layoutX="177.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
             <JFXTextField fx:id="name" focusColor="#019ce1" labelFloat="true" layoutX="181.0" layoutY="74.0" prefHeight="48.0" prefWidth="349.0" promptText="Nom" styleClass="textFields" stylesheets="@../resources/menuStyle.css" />

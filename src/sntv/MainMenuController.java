@@ -15,14 +15,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -81,10 +78,7 @@ public class MainMenuController implements Initializable {
     @FXML 
     private Accordion lignesList;
     
-    @FXML private ImageView exit, minimize; 
-    
-    @FXML
-    private AnchorPane timeRec;
+    @FXML private ImageView exit; 
     
     @FXML private Label clock;
     
@@ -379,17 +373,17 @@ public class MainMenuController implements Initializable {
                                 passenger.passenger.add(passenger);
                                 
                                 for(Lignes ligne : Lignes.lignes){
-                                    if(ligne.getNomLigne().equals(bus.getNomLigne())){
-                                        Reservation res = new Reservation(ligne, bus, passenger);       
-                                        Reservation.reservation.add(res);
+                                    if(ligne.getNomLigne().equals(bus.getNomLigne())){   
                                         Voyage voyage = new Voyage(bus, ligne, java.time.LocalDate.now().toString());
                                         Voyage.voyages.add(voyage);
-                                        /*
+                                        Reservation res = new Reservation(voyage, passenger);       
+                                        Reservation.reservation.add(res);
+                                        
                                         try {
-                                            loadPVtoDataBase(passenger, voyage);
+                                            loadPVtoDataBase(voyage, passenger);
                                         } catch (SQLException ex) {
                                             ex.printStackTrace();
-                                        }*/
+                                        }
                                     }   
                                 }
                      
@@ -404,23 +398,33 @@ public class MainMenuController implements Initializable {
              }
         }
         
-        private void loadPVtoDataBase(Passenger passenger, Voyage voyage) throws SQLException{
+        private void loadPVtoDataBase(Voyage voyage, Passenger passenger) throws SQLException{
             Connection connection = connect();
             
-            String query1 = "INSERT INTO Passager(NPiceDidentite, nom, prenom) "
-                    + "VALUES('"+passenger.getIdNumber()+"', '"+passenger.getFirstName()+"', '"+passenger.getLastName()+"')";
+            String query1 = "INSERT INTO Passager(NPiceDidentite,NVoyage, nom, prenom) "
+                    + "VALUES('"+passenger.getIdNumber()+"',"
+                    + "((SELECT NVoyage FROM Voyage WHERE DateDapart = '"+voyage.getStartDate()+"')),"
+                    + " '"+passenger.getFirstName()+"',"
+                    + " '"+passenger.getLastName()+"')";
             
-            String query2 = "INSERT INTO Voyage(NBus, DateDepart) "
-                    + "VALUES((SELECT NBus from Bus WHERE Matricule = '"+voyage.getBus().getMatricule()+"'), '"+voyage.getStartDate()+"')";
+            String query2 = "INSERT INTO Voyage(NBus, NLigne, DateDepart) "
+                    + "VALUES((SELECT NBus from Bus WHERE Matricule = '"+voyage.getBus().getMatricule()+"'),(SELECT NLigne from Lignes WHERE nomLigne = '"+voyage.getLigne().getNomLigne()+"') , '"+voyage.getStartDate()+"')";
             
-            PreparedStatement ps1 = connection.prepareStatement(query1);
+            String query3 = "INSERT INTO Reservation (NReservation, NVoyage)" 
+                    + "VALUES((SELECT NReservation FROM Passager WHERE NPiceDidentite = '"+passenger.getIdNumber()+"'), (SELECT NVoyage FROM Voyage WHERE DateDepart = '"+voyage.getStartDate()+"'))";
+                    
+                    
             PreparedStatement ps2 = connection.prepareStatement(query2);
-
-            ps1.execute();
-            ps2.execute();
+            PreparedStatement ps1 = connection.prepareStatement(query1);
+            //PreparedStatement ps3 = connection.prepareStatement(query3);
             
-            ps1.close();
+            ps2.execute();
+            ps1.execute();
+            //ps3.execute();
+            
             ps2.close();
+            ps1.close();
+            //ps3.close();            
         }
 
         private boolean returnHaveIRunValue() throws FileNotFoundException{
@@ -541,7 +545,7 @@ public class MainMenuController implements Initializable {
                 System.exit(0);
             }
         });
-           
+ 
             loadFile("data");
             
             //ADDING LIGNES AS TITLEDPANE AND ALSO ADDING VBOXES
@@ -622,13 +626,6 @@ public class MainMenuController implements Initializable {
                     BusQueue busQueue = new BusQueue(ligne);
                     busQueue.run();
                 }
-            /*       
-            try {
-             reserve();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            */
             
             AnimationTimer timer = new AnimationTimer(){
             @Override
@@ -645,7 +642,6 @@ public class MainMenuController implements Initializable {
             populateListOfBuses();
             populateListOfLignes();
             populateListOfChauffeur();
-           
        
     }
         
