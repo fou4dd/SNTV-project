@@ -37,12 +37,10 @@ public class BusQueue {
                             MainMenuController.updateButtons(bus, button);
                        }
                     } if (bus.isFull() == true || java.time.LocalTime.now().isAfter(localTimeOf(bus.getSchedule().getStartTime()))){
-                           //put the bus at the end of the Queue list  
                             JFXButton button = MainMenuController.buttons.get(bus.getMatricule());
                             button.setDisable(true);
                             button.getStyleClass().add("bus_buttons");
                             MainMenuController.updateButtons(bus, button);   
-                            
                        }
                }
             }

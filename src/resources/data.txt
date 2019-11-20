@@ -1,10 +1,23 @@
-b / ORAN / GREATWALL / 9999 / 23
-b / ORAN / toyota / 4547 / 3
-b / ALGER / higer / 487596 / 48
+b / ORAN / Toyata / 295431516 / 23
+b / ORAN / Mahindra / 259431516 / 3
+b / ALGER / Higer / 285431516 / 15
+b / ALGER / Hyonday / 215431434 / 21
+b / MSILA / Higer / 218331434 / 21
 l / ALGER / BBA / TLEMSAN / 200
 l / ORAN / BBA / ADRAR / 600
-l / NIGERIA / BBA / NIGERIA / 100.0
-c / Makhlofi / said / Algerienne / gfdgfd / ea
-c / foued / sedrati / Algerienne / gfd / aee
-c / monder / nait / Algerienne / ewfwt / ae
+l / SETIF / BBA / SETIF / 200.0
+l / MSILA / BBA / MSILA / 250
+l / CHLEF / BBA / CHLEF / 300
+l / ADRAR / BBA / ADRAR / 1200
+l / ANNABA / BBA / ANNABA / 1000
+l / BEJAYA / BBA / BEJAYA / 150
+l / TLEMSAN / BBA / TLEMSAN / 350
+l / BLIDA / BBA / BLIDA / 300
+l / DJELFA / BBA / DJELFA / 500
+l / BATNA / BBA / BATNA / 500
+c / Makhlofi / Ahmed / Algerienne / 21 "rue FK", Alger / 0773624851
+c / Foued / Sedrati / Algerienne / 299 secteur "BC" num 2 / 0662538479
+c / Monder / Nait / Algerienne / 54 rue "CK" Bordj Bou Arreridj / 0773625489
+c / Imed / Mohammad / Algerienne / 32 rue "CK" Bordj Bou Arreridj / 0773628489
+c / Seddik / Nait / Algerienne / 25 rue "MK" Bordj Bou Arreridj / 0773624789
 END

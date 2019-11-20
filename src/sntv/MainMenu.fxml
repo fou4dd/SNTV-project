@@ -20,11 +20,9 @@
       <VBox alignment="CENTER" layoutY="70.0" prefHeight="358.0" prefWidth="178.0" styleClass="settings-layout" stylesheets="@../resources/menuStyle.css">
          <children>
             <JFXButton fx:id="accueil_btn" prefHeight="40.0" prefWidth="178.0" ripplerFill="#323942" styleClass="buttons" text="ACCUEIL" />
-            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="COMPTE" />
             <JFXButton fx:id="bus_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="BUS" textAlignment="CENTER" />
             <JFXButton fx:id="ligne_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="LIGNES" />
             <JFXButton fx:id="chauffeur_btn" prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="CHAUFFEUR" />
-            <JFXButton prefHeight="40.0" prefWidth="202.0" ripplerFill="#323942" styleClass="buttons" text="STATISTIQUE" />
          </children>
       </VBox>
       <HBox layoutX="178.0" prefHeight="70.0" prefWidth="528.0">
@@ -83,7 +81,7 @@
               </columns>
             </TableView>
          </children></AnchorPane>
-      <AnchorPane fx:id="chauffeur_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0">
+      <AnchorPane fx:id="chauffeur_page" layoutX="179.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
             <TableView fx:id="chauffeurTable" prefHeight="414.0" prefWidth="883.0" stylesheets="@../resources/table_view_design.css">
               <columns>
@@ -99,7 +97,7 @@
       <AnchorPane layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false" />
       <AnchorPane fx:id="aide_page" layoutX="178.0" layoutY="127.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>
-            <JFXTextArea editable="false" focusColor="WHITE" layoutX="18.0" layoutY="-4.0" prefHeight="414.0" prefWidth="864.0" text="&#10;&#10;&#10;ACCUEIL:&#10;&#9;Dans cette section on trouve la liste des lignes et les bus disponible dans chaque ligne et on peut réserver un tiquet dans cette page, et cella par cliquer sur la ligne et choisissez le bus disponible après cliquer sur réserver.   &#10;&#10; &#10;BUS : (Accès Privée ‘’Administration’’)&#10;&#9;On cas d’ajout d’un Bus.&#10;&#10;&#10;LIGNES : (Accès Privée ‘’Administration’’)&#10;&#9;On cas d’ajout d’une Ligne.&#10;&#10;&#10;CHOFFEUR : (Accès Privée ‘’Administration’’)&#10;&#9;On cas d’ajout d’un Chauffeur.&#10;&#10;&#10;" unFocusColor="WHITE" />
+            <JFXTextArea editable="false" focusColor="WHITE" layoutX="18.0" layoutY="-4.0" prefHeight="414.0" prefWidth="864.0" text="&#10;&#10;&#10;&#10;&#10;&#10;ACCUEIL:&#10;&#9;Dans cette section on trouve la liste des lignes et les bus disponible dans chaque ligne et on peut réserver un tiquet dans cette page, et cella par cliquer sur la ligne et choisissez le bus disponible après cliquer sur réserver.   &#10;&#10;&#10;BUS : La list des bus .&#10;&#10;&#10;LIGNES : La list des lignes.&#10;&#10;&#10;CHOFFEUR : La list des chauffeurs.&#10;&#10;&#10;&#10;&#10;" unFocusColor="WHITE" />
          </children></AnchorPane>
       <AnchorPane fx:id="contact_page" layoutX="178.0" layoutY="129.0" prefHeight="414.0" prefWidth="883.0" visible="false">
          <children>

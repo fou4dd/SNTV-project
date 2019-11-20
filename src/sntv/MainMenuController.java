@@ -234,12 +234,14 @@ public class MainMenuController implements Initializable {
                 }
                 else if(line.startsWith("l ")){
                     String[] currentLine = line.split(" / ");
-                    Lignes ligne = new Lignes(currentLine[1], currentLine[2], currentLine[3], Float.parseFloat(currentLine[4]));
+                    Lignes ligne = new Lignes(currentLine[1], currentLine[2], currentLine[3],
+                            Float.parseFloat(currentLine[4]));
                     Lignes.lignes.add(ligne);
                 }
                 else if(line.startsWith("c ")){
                     String[] currentLine = line.split(" / ");
-                    Chauffeur chauffeur = new Chauffeur(currentLine[1], currentLine[2], currentLine[3], currentLine[4], currentLine[5]);
+                    Chauffeur chauffeur = new Chauffeur(currentLine[1], currentLine[2], currentLine[3],
+                            currentLine[4], currentLine[5]);
                     Chauffeur.chauffeur.add(chauffeur);
                 }
                 line = reader.readLine();
@@ -361,6 +363,10 @@ public class MainMenuController implements Initializable {
                             String last = lastName.getText().trim();
                             String idNum = idNumber.getText().trim();
                             
+                            name.setText("");
+                            lastName.setText("");
+                            idNumber.setText("");
+                            
                             if(firstName.isEmpty() || last.isEmpty() || idNum.isEmpty()){
                                 Alert alert = new Alert(AlertType.ERROR);
                                 alert.setTitle("Format error");
@@ -384,7 +390,9 @@ public class MainMenuController implements Initializable {
                                         } catch (SQLException ex) {
                                             ex.printStackTrace();
                                         }
-                                    }   
+                                       
+                                    }
+                                 
                                 }
                      
                             }
@@ -401,30 +409,25 @@ public class MainMenuController implements Initializable {
         private void loadPVtoDataBase(Voyage voyage, Passenger passenger) throws SQLException{
             Connection connection = connect();
             
-            String query1 = "INSERT INTO Passager(NPiceDidentite,NVoyage, nom, prenom) "
+            String query1 = "INSERT INTO Passager(NPiceDidentite, nom, prenom) "
                     + "VALUES('"+passenger.getIdNumber()+"',"
-                    + "((SELECT NVoyage FROM Voyage WHERE DateDapart = '"+voyage.getStartDate()+"')),"
                     + " '"+passenger.getFirstName()+"',"
                     + " '"+passenger.getLastName()+"')";
             
-            String query2 = "INSERT INTO Voyage(NBus, NLigne, DateDepart) "
-                    + "VALUES((SELECT NBus from Bus WHERE Matricule = '"+voyage.getBus().getMatricule()+"'),(SELECT NLigne from Lignes WHERE nomLigne = '"+voyage.getLigne().getNomLigne()+"') , '"+voyage.getStartDate()+"')";
+            String query2 = "INSERT INTO Voyage(NPassager, NBus, NLigne, DateDepart) "
+                    + "VALUES((SELECT NPassager FROM Passager WHERE NPiceDidentite = '"+passenger.getIdNumber()+"'), (SELECT NBus from Bus WHERE Matricule = '"+voyage.getBus().getMatricule()+"'),"
+                    + "(SELECT NLigne from Lignes WHERE nomLigne = '"+voyage.getLigne().getNomLigne()+"') ,"
+                    + " '"+voyage.getStartDate()+"')";
             
-            String query3 = "INSERT INTO Reservation (NReservation, NVoyage)" 
-                    + "VALUES((SELECT NReservation FROM Passager WHERE NPiceDidentite = '"+passenger.getIdNumber()+"'), (SELECT NVoyage FROM Voyage WHERE DateDepart = '"+voyage.getStartDate()+"'))";
-                    
-                    
+            PreparedStatement ps1 = connection.prepareStatement(query1);        
             PreparedStatement ps2 = connection.prepareStatement(query2);
-            PreparedStatement ps1 = connection.prepareStatement(query1);
-            //PreparedStatement ps3 = connection.prepareStatement(query3);
             
-            ps2.execute();
             ps1.execute();
-            //ps3.execute();
+            ps2.execute();
+            
             
             ps2.close();
-            ps1.close();
-            //ps3.close();            
+            ps1.close();        
         }
 
         private boolean returnHaveIRunValue() throws FileNotFoundException{
